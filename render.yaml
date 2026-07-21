@@ -1,0 +1,25 @@
+services:
+  # ─── FastAPI Backend Service ──────────────────────────────────────────
+  - type: web
+    name: soilmate-backend
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
+
+  # ─── Next.js Frontend Service ─────────────────────────────────────────
+  - type: web
+    name: soilmate-frontend
+    env: node
+    buildCommand: cd frontend && npm install && npx next build --webpack
+    startCommand: cd frontend && npx next start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.10.0
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: soilmate-backend
+          property: url

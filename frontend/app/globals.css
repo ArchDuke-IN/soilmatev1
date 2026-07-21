@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────────────── */
+:root {
+  --bg:        #F7F6F2;
+  --ink:       #1A1A18;
+  --accent:    #3D6B4F;
+  --muted:     #7A7A72;
+  --sep:       #E0DDD5;
+  --surface:   #EFEDE7;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-head: var(--font-outfit), sans-serif;
+
+  /* Status palette — desaturated, professional */
+  --optimal:   #3D6B4F;
+  --deficient: #B87333;
+  --acidic:    #8B3A3A;
+  --dry:       #9B7541;
+}
+
+/* ─── Reset / Base ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-head);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Status colours ────────────────────────────────────────────────── */
+.status-optimal   { color: var(--optimal); }
+.status-deficient { color: var(--deficient); }
+.status-acidic    { color: var(--acidic); }
+.status-dry       { color: var(--dry); }
+
+.bar-optimal   { background-color: var(--optimal); }
+.bar-deficient { background-color: var(--deficient); }
+.bar-acidic    { background-color: var(--acidic); }
+.bar-dry       { background-color: var(--dry); }
+
+/* ─── Animations ────────────────────────────────────────────────────── */
+
+/* Value flash — triggers when a sensor value changes */
+@keyframes valueIn {
+  from { opacity: 0.15; transform: translateY(5px); }
+  to   { opacity: 1;    transform: translateY(0); }
+}
+.value-flash { animation: valueIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Stagger load-in for rows */
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.row-in {
+  animation: rowIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.row-in:nth-child(1) { animation-delay: 0ms; }
+.row-in:nth-child(2) { animation-delay: 60ms; }
+.row-in:nth-child(3) { animation-delay: 120ms; }
+.row-in:nth-child(4) { animation-delay: 180ms; }
+.row-in:nth-child(5) { animation-delay: 240ms; }
+.row-in:nth-child(6) { animation-delay: 300ms; }
+.row-in:nth-child(7) { animation-delay: 360ms; }
+
+/* Live pulse dot */
+@keyframes livePulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.75); }
+}
+.live-dot { animation: livePulse 2.2s ease-in-out infinite; }
+
+/* Shimmer skeleton */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position:  200% 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    var(--sep)     50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+  border-radius: 3px;
+}
+
+/* Hero status fade-in */
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-in { animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-in-delay { animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both; }
+.hero-in-delay2 { animation: heroIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+
+/* Soft float for right column */
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.float-up { animation: floatUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
