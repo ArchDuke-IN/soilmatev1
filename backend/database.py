@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./soilmate.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///tmp/soilmate.db")
 
 engine = create_async_engine(
     DATABASE_URL,
